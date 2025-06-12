@@ -31,3 +31,15 @@ Inject values from another file:
 ```bash
 yq -i ".microservice.env = load(\"staging.yaml\") | .microservice.env" test.yaml.yaml
 ```
+
+Add new data:
+
+```bash
+yq -i '.microservice.aws = {"accountId": "000000000000","region": "eu-west-1","eks": {"clusterId": "xxxxxxxxxxxxxxx"}}' test.yaml
+```
+
+Sort keys under microservices
+
+```bash
+yq -i '.microservice |= (to_entries | sort_by(.key) | from_entries)' test.yaml
+```
